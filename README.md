@@ -24,3 +24,8 @@ $ kubectl apply -f k8s-manifest.yaml
 
 $ kubectl port-forward svc/what-run-app-service 8080:80
 ```
+
+Go to another terminal window:
+```
+$ curl -X POST http://127.0.0.1:8080/ask_context -H "Content-Type: application/json" -d '{"sentence": "I am running for president of the United States"}'
+```

@@ -8,11 +8,29 @@ I've recorded myself signing 'run' in different ways and uploaded it. GenAI will
 
 ## Getting started
 
-### local
-...
+Note: I'm not using port 5000 as AirPlay Receivers uses it on the Mac M1s, thus going for 5001.
 
-### docker
-...
+### local
+```
+$ python app.py
+```
+Go to another terminal window:
+```
+$ curl -X POST http://127.0.0.1:5001/ask_context -H "Content-Type: application/json" -d '{"sentence": "I am running for president of the United States"}'
+```
+
+### docker (Mac M1)
+The Dockerfile is prepared for you, but feel free to edit to your heart's content
+
+```
+$ docker build --platform linux/arm64 -t what-run-app:latest . 
+
+$ docker run --rm -p 5001:5001 --env OPENAI_API_KEY="sk-your-key-here" what-run-app
+```
+Go to another terminal window:
+```
+$ curl -X POST http://127.0.0.1:5001/ask_context -H "Content-Type: application/json" -d '{"sentence": "I am running for president of the United States"}'
+```
 
 ### kubernetes
 Export your OPENAI_API_KEY this way (first, replace 'your_openai_api_key'):

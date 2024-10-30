@@ -8,10 +8,10 @@ I've recorded myself signing 'run' in different ways and uploaded it. GenAI will
 
 ## Getting started
 
-Note: I'm not using port 5000 as AirPlay Receivers uses it on the Mac M1s, thus going for 5001.
-
-### register and generate an Open AI key from here
-https://platform.openai.com/settings/organization/api-keys
+Notes: 
+- I'm not using port 5000 as AirPlay Receivers uses it on the Mac M1s, thus going for 5001.
+- Get your Open AI key from https://platform.openai.com/setings/organization/api-keys
+- Used Python 3.11 (used venv and pyenv)
 
 ### local
 ```

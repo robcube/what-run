@@ -18,5 +18,9 @@ Export your OPENAI_API_KEY this way (first, replace 'your_openai_api_key'):
 $ kubectl create secret generic openai-secret --from-literal=OPENAI_API_KEY=your_openai_api_key
 ```
 
-Install kind, create a cluster
+Install kind, create a cluster -- find instructions online somewhere
+```
+$ kubectl apply -f k8s-manifest.yaml 
 
+$ kubectl port-forward svc/what-run-app-service 8080:80
+```

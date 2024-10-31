@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Context Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+        }
+        .result p {
+            margin: 10px 0;
+        }
+        .result video {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Text to Context Analyzer</h1>
+        <input type="text" id="textInput" placeholder="Enter text here">
+        <button onclick="analyzeText()">Analyze Text</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        async function analyzeText() {
+            const text = document.getElementById('textInput').value;
+            const response = await fetch('/ask_context', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ sentence: text }),
+            });
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = ''; // Clear previous results
+
+            if (response.ok) {
+                const data = await response.json();
+                const context = document.createElement('p');
+                context.textContent = `Context: ${data.context}`;
+                resultDiv.appendChild(context);
+
+                const relevantEntries = document.createElement('div');
+                relevantEntries.innerHTML = '<h3>Relevant Entries:</h3>';
+                for (const [key, value] of Object.entries(data.relevant_entries)) {
+                    const entry = document.createElement('p');
+                    entry.textContent = `${key}: ${value}`;
+                    relevantEntries.appendChild(entry);
+                }
+                resultDiv.appendChild(relevantEntries);
+
+                const video = document.createElement('video');
+                video.src = data.url; // Set the video source to the URL
+                video.controls = true; // Add video controls
+                resultDiv.appendChild(video);
+            } else {
+                resultDiv.textContent = 'Error analyzing text';
+            }
+        }
+    </script>
+</body>
+</html>

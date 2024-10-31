@@ -1,4 +1,4 @@
-# Run What?
+# What Run?
 
 <img src="demo.png" width=75% height=75% alt="show web app with Rob Koch signing 'candidate' with a text box showing 'running for elected office' ">
 

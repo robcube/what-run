@@ -1,6 +1,6 @@
 # Run What?
 
-<img src="demo.png" width=50% height=50% alt="show web app with Rob Koch signing 'candidate' with a text box showing 'running for elected office' ">
+<img src="demo.png" width=75% height=75% alt="show web app with Rob Koch signing 'candidate' with a text box showing 'running for elected office' ">
 
 ## The premise
 There are several meanings of the word 'run'. Same with American Sign Language. We sign 'run' in different ways according to what it actually means.

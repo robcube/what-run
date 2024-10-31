@@ -1,5 +1,7 @@
 # Run What?
 
+![demo image](demo.png)
+
 ## The premise
 There are several meanings of the word 'run'. Same with American Sign Language. We sign 'run' in different ways according to what it actually means.
 
@@ -27,7 +29,7 @@ $ curl -X POST http://127.0.0.1:5001/ask_context -H "Content-Type: application/j
 The Dockerfile is prepared for you, but feel free to edit to your heart's content
 
 ```
-$ docker build --platform linux/arm64 -t what-run-app:latest . 
+$ docker build -t what-run-app:latest . 
 
 $ docker run --rm -p 5001:5001 --env OPENAI_API_KEY="your_openai_api_key" what-run-app
 ```
@@ -44,6 +46,12 @@ $ kubectl create secret generic openai-secret --from-literal=OPENAI_API_KEY="you
 
 Install kind, create a cluster -- find instructions online somewhere
 ```
+$ kind load docker-image what-run-app:latest  
+```
+If you're doing an update:
+```
+$ kubectl rollout restart deployment/what-run-app 
+
 $ kubectl apply -f k8s-manifest.yaml 
 
 $ kubectl port-forward svc/what-run-app-service 8080:80

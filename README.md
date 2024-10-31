@@ -13,10 +13,11 @@ I've recorded myself signing 'run' in different ways and uploaded it. GenAI will
 Notes: 
 - I'm not using port 5000 as AirPlay Receivers uses it on the Mac M1s, thus going for 5001.
 - Get your Open AI key from https://platform.openai.com/setings/organization/api-keys
-- Used Python 3.11 (used venv and pyenv)
+- Used Python 3.11 (along with venv and pyenv)
 
 ### local
 ```
+$ pip install -r requirements.txt
 $ export OPENAI_API_KEY="your_openai_api_key"
 $ python app.py
 ```
@@ -39,22 +40,23 @@ $ curl -X POST http://127.0.0.1:5001/ask_context -H "Content-Type: application/j
 ```
 
 ### kubernetes
-Export your OPENAI_API_KEY this way (first, replace 'your_openai_api_key'):
+Import your OPENAI_API_KEY to your Kubernetes secret *cough* storage (first, replace 'your_openai_api_key'):
 ```
 $ kubectl create secret generic openai-secret --from-literal=OPENAI_API_KEY="your_openai_api_key"
 ```
 
-Install kind, create a cluster -- find instructions online somewhere
+Install kind, create a cluster -- plenty of instructions online somewhere. :-) 
 ```
 $ kind load docker-image what-run-app:latest  
-```
-If you're doing an update:
-```
-$ kubectl rollout restart deployment/what-run-app 
 
 $ kubectl apply -f k8s-manifest.yaml 
 
 $ kubectl port-forward svc/what-run-app-service 8080:80
+```
+
+If you made an oopsie and need to do an update:
+```
+$ kubectl rollout restart deployment/what-run-app 
 ```
 
 Go to another terminal window:

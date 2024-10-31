@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import openai
 import os
 import numpy as np
@@ -18,6 +18,10 @@ dictionary = {
     'overflow': 'When water or any other liquids cannot be contained, this happens.',
     'unknown': 'If you do not know the answer, use this.',
 }
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 @app.route('/ask_context', methods=['POST'])
 def ask_context():

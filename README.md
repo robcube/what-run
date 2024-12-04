@@ -63,3 +63,32 @@ Go to another terminal window:
 ```
 $ curl -X POST http://127.0.0.1:8080/ask_context -H "Content-Type: application/json" -d '{"sentence": "I am running for president of the United States"}'
 ```
+
+Diagram of the logic
+```mermaid
+graph TD;
+    A[Client] -->|POST /ask_context| B[Flask App];
+    B --> C{Check 'run' in sentence?};
+    C -->|Yes| D[get_context];
+    C -->|No| E[JSON comes back];
+    D --> F[query_dictionary];
+    F --> G[generate_url];
+    G --> H[Return JSON with context, entries, URL];
+
+    subgraph Flask Application
+        B
+        D
+        F
+        G
+        H
+    end
+
+    subgraph OpenAI API
+        D --> I[OpenAI Completion];
+        F --> J[OpenAI Embedding];
+    end
+
+    subgraph Dictionary
+        F --> K[Compute Similarity];
+    end
+```
